@@ -40,7 +40,7 @@ public class FragmentLifecycleForRxLifecycle extends FragmentManager.FragmentLif
     @Override
     public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
         if (f instanceof FragmentLifecycleable) {
-            obtainSubject(f).onNext(FragmentEvent.ATTACH);
+            obtainSubject(f).onNext(FragmentEvent.ATTACH); // !!! notify
         }
     }
 

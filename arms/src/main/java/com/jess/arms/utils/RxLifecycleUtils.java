@@ -35,6 +35,48 @@ import io.reactivex.annotations.NonNull;
  * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
+ *
+ * Rxlifecycle使用
+
+ Activity/Fragment需继承RxAppCompatActivity/RxFragment，目前支持的有RxAppCompatActivity、
+ RxFragment、RxDialogFragment、RxFragmentActivity。
+
+ 一、bindToLifecycle()方法
+
+ 在子类使用Observable中的compose操作符，调用，完成Observable发布的事件和当前的组件绑定，实现生命周期同步。
+ 从而实现当前组件生命周期结束时，自动取消对Observable订阅。
+
+         Observable.interval(1, TimeUnit.SECONDS)
+
+         .compose(this.bindToLifecycle())
+
+         .subscribe(new Action1() {
+
+        @Override
+
+        public void call(Long num) {
+
+        Log.i(TAG, "  " + num);
+
+        }
+
+        });
+
+ 二、bindUntilEvent()方法
+
+ 使用ActivityEvent类，其中的CREATE、START、 RESUME、PAUSE、STOP、 DESTROY分别对应生命周期内的方法。使用bindUntilEvent指定在哪个生命周期方法调用时取消订阅。
+
+         Observable.interval(1,TimeUnit.SECONDS)
+
+         .compose(this.bindUntilEvent(ActivityEvent.PAUSE))
+
+         .subscribe(mSub);
+
+ 作者：sword_
+ 链接：http://www.jianshu.com/p/a3ad9dd20655
+ 來源：简书
+ 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ *
  */
 
 public class RxLifecycleUtils {
@@ -88,6 +130,11 @@ public class RxLifecycleUtils {
 
     /**
      * 绑定 Activity/Fragment 的生命周期
+     *
+     * ！！！
+     * 什么时候生效呢？ UserPresenter中会调用 compose(RxLifecycleUtils.bindToLifecycle(mRootView))进行
+     * Activity的绑定，然后ActivityLifecycleForRxLifecycle会进行事件的通知分发，然后RxLifecycleAndroid
+     * 会收到这些通知。
      *
      * @param view
      * @param <T>

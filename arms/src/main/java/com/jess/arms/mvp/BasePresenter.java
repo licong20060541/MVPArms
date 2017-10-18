@@ -102,7 +102,7 @@ public class BasePresenter<M extends IModel, V extends IView> implements IPresen
     /**
      * 将 {@link Disposable} 添加到 {@link CompositeDisposable} 中统一管理
      * 可在 {@link Activity#onDestroy()} 中使用 {@link #unDispose()} 停止正在执行的 RxJava 任务,避免内存泄漏
-     * 目前框架已使用 {@link RxLifecycle} 避免内存泄漏,此方法作为备用方案
+     * 目前框架已使用 {@link RxLifecycle} 避免内存泄漏,此方法作为备用方案!!!
      *
      * @param disposable
      */
@@ -114,6 +114,7 @@ public class BasePresenter<M extends IModel, V extends IView> implements IPresen
     }
 
     /**
+     * !!!
      * 停止集合中正在执行的 RxJava 任务
      */
     public void unDispose() {

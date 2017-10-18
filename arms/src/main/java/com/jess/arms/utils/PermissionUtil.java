@@ -26,7 +26,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import timber.log.Timber;
 
-/**
+/** good!
  * ================================================
  * 权限请求工具类
  *

@@ -40,3 +40,42 @@ public interface CommonCache {
     @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<List<User>>> getUsers(Observable<List<User>> users, DynamicKey idLastUserQueried, EvictProvider evictProvider);
 }
+
+
+/**
+ RxCache
+
+ 是使用注解为Retrofit加入二级缓存(内存,磁盘)的缓存库。 开头膜拜大神
+ 项目地址 : RxCache
+
+ RxCache使用方法
+ 定义接口
+
+ public interface CacheProviders {
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<List<Repo>>> getRepos(Observable<List<Repo>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<List<User>>> getUsers(Observable<List<User>> oUsers, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+
+    Observable<Reply<User>> getCurrentUser(Observable<User> oUser, EvictProvider evictProvider);
+}
+
+ 十分简洁，使用了注解@LifeCache声明了缓存的超时时间（duration长度,timeUnit时间单位），接口定义了之后，如何实例化这个接口，看下面。
+ 创建CacheProviders对象
+
+ providers = new RxCache.Builder()
+ .persistence(cacheDir, new GsonSpeaker())
+ .using(Providers.class);
+
+ 之后的使用和Retrofit无异
+
+ 实例化的过程是比较常见的Builder模式，和Retrofit的API的实例化的方式很像，调用using()就创建了接口的实例，
+ 和Retrofit的create()方法也十分相似，当然内部实现也很相似（都是使用了动态代理）。
+
+ 作者：srtianxia
+ 链接：http://www.jianshu.com/p/5d73909c7068
+ 來源：简书
+ 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+ */

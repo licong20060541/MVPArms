@@ -49,7 +49,7 @@ public class ActivityLifecycleForRxLifecycle implements Application.ActivityLife
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         if (activity instanceof ActivityLifecycleable) {
-            obtainSubject(activity).onNext(ActivityEvent.CREATE);
+            obtainSubject(activity).onNext(ActivityEvent.CREATE); // !!! notify
             if (activity instanceof FragmentActivity){
                 if (mFragmentLifecycle == null) {
                     mFragmentLifecycle = new FragmentLifecycleForRxLifecycle();

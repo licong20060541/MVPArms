@@ -86,7 +86,7 @@ public class UserPresenter extends BasePresenter<UserContract.Model, UserContrac
 
         if (pullToRefresh) lastUserId = 1;//下拉刷新默认只请求第一页
 
-        //关于RxCache缓存库的使用请参考 http://www.jianshu.com/p/b58ef6b0624b
+        //关于RxCache缓存库的使用请参考 http://www.jianshu.com/p/b58ef6b0624b !!!
 
         boolean isEvictCache = pullToRefresh;//是否驱逐缓存,为ture即不使用缓存,每次下拉刷新即需要最新数据,则不使用缓存
 
